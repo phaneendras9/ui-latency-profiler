@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page A - Baseline</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Page A – Baseline UI</h1>
+  <p>This page has minimal content and should show very low UI latency.</p>
+  <button id="baselineBtn">Click Me</button>
+
+  <script src="profiler.js"></script>
+  <script>
+    document.getElementById('baselineBtn').addEventListener('click', () => {
+      const p = document.createElement('p');
+      p.textContent = 'Button clicked at ' + new Date().toLocaleTimeString();
+      document.body.appendChild(p);
+    });
+  </script>
+</body>
+</html>

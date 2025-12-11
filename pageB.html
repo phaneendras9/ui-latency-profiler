@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page B - Heavy Render</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { padding: 10px 20px; font-size: 16px; margin-bottom: 10px; }
+    #listContainer { max-height: 400px; overflow: auto; border: 1px solid #ccc; padding: 10px; }
+    .item { padding: 4px 0; }
+  </style>
+</head>
+<body>
+  <h1>Page B – Heavy Render UI</h1>
+  <p>This page renders a large list to simulate expensive rendering and possible re-render storms.</p>
+
+  <button id="renderBtn">Render Large List</button>
+  <button id="updateBtn">Update List</button>
+  <div id="listContainer"></div>
+
+  <script src="profiler.js"></script>
+  <script>
+    const listContainer = document.getElementById('listContainer');
+
+    function renderLargeList(size) {
+      const start = performance.now();
+      listContainer.innerHTML = '';
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < size; i++) {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.textContent = 'Item #' + i;
+        fragment.appendChild(div);
+      }
+      listContainer.appendChild(fragment);
+      const duration = performance.now() - start;
+      console.log('%c[TEST] Rendered', 'color: teal; font-weight: bold;', size, 'items in', duration.toFixed(2), 'ms');
+    }
+
+    document.getElementById('renderBtn').addEventListener('click', () => {
+      renderLargeList(2000);
+    });
+
+    document.getElementById('updateBtn').addEventListener('click', () => {
+      renderLargeList(1500);
+    });
+  </script>
+</body>
+</html>

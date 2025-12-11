@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page C - JS Blocking</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Page C – JavaScript Blocking UI</h1>
+  <p>This page simulates a heavy computation on button click, blocking the main thread.</p>
+  <button id="blockBtn">Run Heavy Computation</button>
+
+  <script src="profiler.js"></script>
+  <script>
+    function blockMainThread(durationMs) {
+      const start = performance.now();
+      while (performance.now() - start < durationMs) {
+        // Busy loop to block the main thread
+      }
+    }
+
+    document.getElementById('blockBtn').addEventListener('click', () => {
+      console.log('%c[TEST] Blocking main thread for 300 ms...', 'color: red; font-weight: bold;');
+      blockMainThread(300);
+      console.log('%c[TEST] Done blocking.', 'color: green; font-weight: bold;');
+    });
+  </script>
+</body>
+</html>
